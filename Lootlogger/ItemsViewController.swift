@@ -109,6 +109,12 @@ class ItemsViewController: UITableViewController {
         itemStore.moveItem(from: sourceIndexPath, to: destinationIndexPath)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tableView.reloadData()
+    }
+    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
