@@ -4,10 +4,16 @@ import UIKit
 
 class ItemStore {
 
-    
-    var allItems = [Item]() 
     var expensiveItems = [Item]() // For items > $50
     var cheapItems = [Item]()     // For items <= $50
+    var allItems = [Item]()
+    let itemArchiveURL: URL = {
+        let documentsDirectories =
+            FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = documentsDirectories.first!
+        return documentDirectory.appendingPathComponent("items.plist")
+    }()
+    
     
     
     @discardableResult func createItem() -> Item {
@@ -62,5 +68,41 @@ class ItemStore {
         } else {
             cheapItems.insert(itemToMove, at: destinationIndexPath.row)
         }
+    }
+    
+    
+    /*func saveChanges() -> Bool {
+        
+        let allItemsToSave = expensiveItems + cheapItems
+
+        do {
+            
+            let encoder = PropertyListEncoder()
+            
+            
+            let data = try encoder.encode(allItemsToSave)
+            
+            
+            
+            print("Successfully encoded and saved all items.")
+            return true // Return true if everything succeeded
+            
+        } catch {
+            
+            print("Error encoding or saving items: \(error)")
+            return false // Return false if an error occurred
+        }
+    } */
+    
+    func saveChanges() -> Bool {
+        do {
+            let encoder = PropertyListEncoder()
+            
+            let data = try encoder.encode(allItems)
+        } catch let encodingError {
+            print("Error encoding allItems: \(encodingError)")
+        }
+
+        return false
     }
 }

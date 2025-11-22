@@ -15,7 +15,7 @@
 import UIKit
 
 // 1. Add conformance to the Equatable protocol
-class Item: Equatable {
+class Item: Equatable, Codable {
     
     var name: String
     var valueInDollars: Int
