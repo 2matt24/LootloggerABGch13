@@ -4,7 +4,17 @@ class ItemsViewController: UITableViewController {
     
     var itemStore: ItemStore!
     
-    // --- Data Source Methods ---
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 65
+    }
+    
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // Section 0: Expensive items, Section 1: Cheap items
@@ -13,7 +23,7 @@ class ItemsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,
                             numberOfRowsInSection section: Int) -> Int {
-        // Use the helper function to get the correct array size
+       
         let items = itemStore.item(for: section)
         return items.count
     }
@@ -32,7 +42,7 @@ class ItemsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell",
                                                  for: indexPath)
         
-        // Get the correct array based on the section
+        
         let items = itemStore.item(for: indexPath.section)
         let item = items[indexPath.row]
         
@@ -42,22 +52,22 @@ class ItemsViewController: UITableViewController {
         return cell
     }
     
-    // --- Actions ---
+    
     
     @IBAction func addNewItem(_ sender: UIButton) {
         let newItem = itemStore.createItem()
         
-        // Determine the target section based on item value
+        
         let targetSection = newItem.valueInDollars > 50 ? 0 : 1
         
-        // Get the items array for the target section
+       
         let itemsInTargetSection = itemStore.item(for: targetSection)
         
-        // Find the index of the new item within that specific section array
+        
         if let index = itemsInTargetSection.firstIndex(of: newItem) {
             let indexPath = IndexPath(row: index, section: targetSection)
             
-            // Insert the new row into the table view at the correct section
+            
             tableView.insertRows(at: [indexPath], with: .automatic)
         }
     }
@@ -72,7 +82,7 @@ class ItemsViewController: UITableViewController {
         }
     }
     
-    // --- Editing Methods ---
+   
     
     override func tableView(_ tableView: UITableView,
                             commit editingStyle: UITableViewCell.EditingStyle,
@@ -83,10 +93,10 @@ class ItemsViewController: UITableViewController {
             let items = itemStore.item(for: indexPath.section)
             let item = items[indexPath.row]
             
-            // Remove the Item from the ItemStore
+            
             itemStore.removeItem(item: item)
             
-            // Remove the corresponding row from the table view
+            
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -97,5 +107,30 @@ class ItemsViewController: UITableViewController {
         
         
         itemStore.moveItem(from: sourceIndexPath, to: destinationIndexPath)
+    }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        switch segue.identifier {
+        case "showItem":
+          
+            if let indexPath = tableView.indexPathForSelectedRow {
+                
+               
+                let items = itemStore.item(for: indexPath.section)
+                
+                
+                let item = items[indexPath.row]
+                
+               
+                let detailViewController = segue.destination as! DetailViewController
+                detailViewController.item = item
+            }
+        default:
+            
+            break
+        }
     }
 }

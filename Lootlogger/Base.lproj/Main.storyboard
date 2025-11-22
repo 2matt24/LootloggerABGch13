@@ -71,6 +71,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="VVk-RN-SSd" kind="show" identifier="showItem" id="dIN-U3-7XR"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -83,16 +86,16 @@
             </objects>
             <point key="canvasLocation" x="51.145038167938928" y="7.746478873239437"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="wDy-IK-FSc">
             <objects>
-                <viewController id="VVk-RN-SSd" sceneMemberID="viewController">
+                <viewController id="VVk-RN-SSd" customClass="DetailViewController" customModule="Lootlogger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eAQ-p1-pXE">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ef3-Dj-ZLr">
-                                <rect key="frame" x="16" y="67" width="361" height="743"/>
+                                <rect key="frame" x="16" y="8" width="361" height="826"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mot-oq-Oq3">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="34"/>
@@ -143,7 +146,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Date Created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JHo-Z6-Ao1">
-                                        <rect key="frame" x="0.0" y="126" width="361" height="617"/>
+                                        <rect key="frame" x="0.0" y="126" width="361" height="700"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -164,6 +167,13 @@
                             <constraint firstItem="Ef3-Dj-ZLr" firstAttribute="top" secondItem="GN6-WA-EW4" secondAttribute="top" constant="8" id="vNH-ia-rok"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Ike-2B-ICa"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="JHo-Z6-Ao1" id="Rmh-23-sdW"/>
+                        <outlet property="nameField" destination="WJ7-I4-2Mb" id="0Hb-TB-Mqh"/>
+                        <outlet property="serialNumberField" destination="NJC-iY-gEp" id="jCM-n9-CiM"/>
+                        <outlet property="valueField" destination="aSc-gC-Wfa" id="UVI-Dz-2Xr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWN-fq-XTG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
