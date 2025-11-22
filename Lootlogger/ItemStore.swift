@@ -94,46 +94,50 @@ class ItemStore {
         }
     } */
     
-    @objc func saveChanges() -> Bool {
-        
-        
-        print("Saving items to: \(itemArchiveURL)")
-        
-        do {
+    
+    func saveChanges() throws {
+            
+            print("Saving items to: \(itemArchiveURL)")
+            
+            // Combine all items before saving them
+            let allItemsToSave = expensiveItems + cheapItems
+            
+            // Remove the do-catch block and let the errors propagate up
             let encoder = PropertyListEncoder()
             
-            let data = try encoder.encode(allItems)
+            // If encoding fails, it throws an error
+            let data = try encoder.encode(allItemsToSave)
+            
+            // If writing fails, it throws an error
             try data.write(to: itemArchiveURL, options: [.atomic])
             print("Saved all of the items")
-            return true
-            
-        } catch let encodingError {
-            print("Error encoding allItems: \(encodingError)")
-            return false
         }
-
-       
-    }
     
     
     init() {
-        do {
+            do {
                 let data = try Data(contentsOf: itemArchiveURL)
                 let unarchiver = PropertyListDecoder()
                 let items = try unarchiver.decode([Item].self, from: data)
-                allItems = items
+                
+                
+                for item in items {
+                    if item.valueInDollars > 50 {
+                        expensiveItems.append(item)
+                    } else {
+                        cheapItems.append(item)
+                    }
+                }
             } catch {
                 print("Error reading in saved items: \(error)")
             }
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self,
-                                       selector: #selector(saveChanges),
-                                       name: UIScene.didEnterBackgroundNotification,
-                                       object: nil)
+            
+            
+        }
     }
     
     
     
-}
+
 
 
