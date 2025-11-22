@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Items View Controller-->
+        <!--LootLogger-->
         <scene sceneID="V8S-xU-R8Y">
             <objects>
                 <tableViewController id="7cI-Zv-Rav" customClass="ItemsViewController" customModule="Lootlogger" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,7 +81,20 @@
                             <outlet property="delegate" destination="7cI-Zv-Rav" id="xGK-ug-Phs"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="lyu-Af-iLF"/>
+                    <navigationItem key="navigationItem" title="LootLogger" id="zda-PN-aSQ">
+                        <centerItemGroups>
+                            <barButtonItemGroup customizationDisposition="fixed" id="zIM-lD-ET4">
+                                <barButtonItems>
+                                    <barButtonItem title="Item" id="5GH-md-pQv"/>
+                                </barButtonItems>
+                            </barButtonItemGroup>
+                        </centerItemGroups>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="CaP-Mn-fW2">
+                            <connections>
+                                <action selector="addNewItem:" destination="7cI-Zv-Rav" id="Mj9-XM-BZV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rbI-2V-6SW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
